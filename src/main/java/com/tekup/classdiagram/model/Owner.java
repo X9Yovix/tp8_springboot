@@ -5,17 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "properties")
+@Table(name = "owners")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Property {
+public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "address", nullable = false)
-    private String address;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @Column(name = "price", nullable = false)
-    private double price;
+    @Column(name = "contact_information", nullable = false)
+    private String contactInformation;
 }
