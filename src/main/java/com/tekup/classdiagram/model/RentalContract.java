@@ -1,13 +1,16 @@
 package com.tekup.classdiagram.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "rental_contracts")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@ToString
+@Getter
+@Setter
 public class RentalContract {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
