@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CreatePropertyResponse {
+public class CUPropertyResponse {
     private Property property;
     private String message;
     private int httpStatus;

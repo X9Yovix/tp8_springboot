@@ -7,8 +7,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreatePropertyRequest {
-    private Long id;
+public class CUPropertyRequest {
     private String address;
     private double price;
 }
