@@ -21,4 +21,9 @@ public class PropertyController {
     public ResponseEntity<?> updateProperty(@PathVariable("id") Long id, @RequestBody CUPropertyRequest request) {
         return ResponseEntity.ok(this.propertyService.updateProperty(id, request));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getProperty(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(this.propertyService.getPropertyById(id));
+    }
 }

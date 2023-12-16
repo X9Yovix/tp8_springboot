@@ -13,7 +13,7 @@ public interface PropertyService {
     //R
     public List<Property> getAllProperties();
 
-    Optional<Property> getPropertyById(Long id);
+    Object getPropertyById(Long id);
 
     //U
     Object updateProperty(Long id, CUPropertyRequest request);

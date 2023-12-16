@@ -46,30 +46,41 @@ public class PropertyServiceImp implements PropertyService {
         return null;
     }
 
+
+    private Property findPropertyById(Long id) throws ResourceNotFound {
+        Optional<Property> findProperty = this.propertyRepository.findById(id);
+        if (findProperty.isPresent()) {
+            return findProperty.get();
+        } else {
+            throw new ResourceNotFound("Property not found with id: " + id);
+        }
+    }
+
     @Override
-    public Optional<Property> getPropertyById(Long id) {
-        return Optional.empty();
+    public Object getPropertyById(Long id) {
+        try {
+            return CUPropertyResponse.builder()
+                    .property(this.findPropertyById(id))
+                    .message("Property found")
+                    .httpStatus(HttpStatus.OK.value())
+                    .build();
+        } catch (Exception e) {
+            return MessageResponse.builder()
+                    .message("Unexpected error occurred")
+                    .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .build();
+        }
     }
 
     @Override
     public Object updateProperty(Long id, CUPropertyRequest request) {
         try {
-            Optional<Property> findProperty = this.propertyRepository.findById(id);
-            if (findProperty.isPresent()) {
-                Property existingProperty = findProperty.get();
-                existingProperty.setAddress(request.getAddress());
-                existingProperty.setPrice(request.getPrice());
-
-                Property updatedProperty = this.propertyRepository.save(existingProperty);
-
-                return CUPropertyResponse.builder()
-                        .property(updatedProperty)
-                        .message("Property updated")
-                        .httpStatus(HttpStatus.CREATED.value())
-                        .build();
-            } else {
-                throw new ResourceNotFound("Property not found with id: " + id);
-            }
+            Property updatedProperty = this.propertyRepository.save(this.findPropertyById(id));
+            return CUPropertyResponse.builder()
+                    .property(updatedProperty)
+                    .message("Property updated")
+                    .httpStatus(HttpStatus.CREATED.value())
+                    .build();
         } catch (Exception e) {
             return MessageResponse.builder()
                     .message("Unexpected error occurred")
