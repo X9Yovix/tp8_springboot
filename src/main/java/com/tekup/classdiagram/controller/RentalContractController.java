@@ -2,6 +2,7 @@ package com.tekup.classdiagram.controller;
 
 import com.tekup.classdiagram.payload.request.CURentalContractRequest;
 import com.tekup.classdiagram.service.RentalContractService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +14,12 @@ public class RentalContractController {
     private final RentalContractService rentalContractService;
 
     @PostMapping("/")
-    public ResponseEntity<?> createRentalContract(@RequestBody CURentalContractRequest request) {
+    public ResponseEntity<?> createRentalContract(@Valid @RequestBody CURentalContractRequest request) {
         return ResponseEntity.ok(this.rentalContractService.createRentalContract(request));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateRentalContract(@PathVariable("id") Long id, @RequestBody CURentalContractRequest request) {
+    public ResponseEntity<?> updateRentalContract(@PathVariable("id") Long id, @Valid @RequestBody CURentalContractRequest request) {
         return ResponseEntity.ok(this.rentalContractService.updateRentalContract(id, request));
     }
 
