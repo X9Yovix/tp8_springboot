@@ -5,12 +5,12 @@ import com.tekup.classdiagram.model.Property;
 import com.tekup.classdiagram.payload.request.CUPropertyRequest;
 import com.tekup.classdiagram.payload.response.CUPropertyResponse;
 import com.tekup.classdiagram.payload.response.MessageResponse;
+import com.tekup.classdiagram.payload.response.PropertiesResponse;
 import com.tekup.classdiagram.repository.PropertyRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,7 +27,6 @@ public class PropertyServiceImp implements PropertyService {
 
         try {
             Property savedProperty = this.propertyRepository.save(property);
-            System.out.println(savedProperty);
             return CUPropertyResponse.builder()
                     .property(savedProperty)
                     .message("Property saved")
@@ -42,8 +41,12 @@ public class PropertyServiceImp implements PropertyService {
     }
 
     @Override
-    public List<Property> getAllProperties() {
-        return null;
+    public Object getAllProperties() {
+        return PropertiesResponse.builder()
+                .properties(this.propertyRepository.findAll())
+                .message("Properties found")
+                .httpStatus(HttpStatus.OK.value())
+                .build();
     }
 
 
@@ -90,7 +93,19 @@ public class PropertyServiceImp implements PropertyService {
     }
 
     @Override
-    public void deleteProperty(Long id) {
-
+    public Object deleteProperty(Long id) {
+        try {
+            Property property = this.findPropertyById(id);
+            this.propertyRepository.delete(property);
+            return MessageResponse.builder()
+                    .message("Property deleted successfully")
+                    .httpStatus(HttpStatus.NO_CONTENT.value())
+                    .build();
+        } catch (Exception e) {
+            return MessageResponse.builder()
+                    .message("Unexpected error occurred")
+                    .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .build();
+        }
     }
 }

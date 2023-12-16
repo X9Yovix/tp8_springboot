@@ -26,4 +26,14 @@ public class PropertyController {
     public ResponseEntity<?> getProperty(@PathVariable("id") Long id) {
         return ResponseEntity.ok(this.propertyService.getPropertyById(id));
     }
+
+    @GetMapping("/")
+    public ResponseEntity<?> getAllProperties() {
+        return ResponseEntity.ok(this.propertyService.getAllProperties());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProperty(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(this.propertyService.deleteProperty(id));
+    }
 }

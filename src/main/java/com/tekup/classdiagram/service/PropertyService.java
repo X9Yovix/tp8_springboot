@@ -11,7 +11,7 @@ public interface PropertyService {
     Object createProperty(CUPropertyRequest request);
 
     //R
-    public List<Property> getAllProperties();
+    Object getAllProperties();
 
     Object getPropertyById(Long id);
 
@@ -19,5 +19,5 @@ public interface PropertyService {
     Object updateProperty(Long id, CUPropertyRequest request);
 
     //D
-    public void deleteProperty(Long id);
+    Object deleteProperty(Long id);
 }
