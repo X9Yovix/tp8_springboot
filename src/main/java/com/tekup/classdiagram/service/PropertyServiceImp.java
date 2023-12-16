@@ -49,7 +49,6 @@ public class PropertyServiceImp implements PropertyService {
                 .build();
     }
 
-
     private Property findPropertyById(Long id) throws ResourceNotFound {
         Optional<Property> findProperty = this.propertyRepository.findById(id);
         if (findProperty.isPresent()) {
