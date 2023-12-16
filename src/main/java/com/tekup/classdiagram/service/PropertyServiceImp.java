@@ -78,7 +78,10 @@ public class PropertyServiceImp implements PropertyService {
     @Override
     public Object updateProperty(Long id, CUPropertyRequest request) {
         try {
-            Property updatedProperty = this.propertyRepository.save(this.findPropertyById(id));
+            Property existingProperty = this.findPropertyById(id);
+            existingProperty.setAddress(request.getAddress());
+            existingProperty.setPrice(request.getPrice());
+            Property updatedProperty = this.propertyRepository.save(existingProperty);
             return CUPropertyResponse.builder()
                     .property(updatedProperty)
                     .message("Property updated")
