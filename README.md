@@ -71,3 +71,18 @@ Developing APIs with Spring Boot based on a Class Diagram.
 ### Note:
 - In the API response for fetching a Rental Contract, Rental Contracts, or during the creation of a Rental Contract, the complete attributes of the associated `Property` and `Owner` are included within the object. This behavior is typically caused by the use of eager fetching in the data model.
 - To avoid this behavior, we should consider using the fetching strategy `LAZY`, additionally, utilize a DTO (Data Transfer Object) and a custom serializer to control the specific elements to be returned in the response.
+
+## Continuous Integration (CI) with GitHub Actions:
+
+- In this project, we have implemented a unit test for creating a property. To automate the testing process and ensure continuous integration, we utilized GitHub Actions workflows. The image below provides an overview of our CI pipeline:
+
+![Workflow](images/ci/1.png)
+
+- All steps in the workflow have been completed successfully, as shown in the image below:
+  
+![Successful Completion](images/ci/2.png)
+  
+- And what we want to highlight is the testing step, and we can confirm that the tests have passed successfully:
+
+![Test Execution](images/ci/3.png)
+
